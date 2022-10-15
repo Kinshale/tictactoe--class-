@@ -1,0 +1,19 @@
+.square {
+  width: 90px;
+  height: 90px;
+  font-size: 54px;
+  border: none;
+  background: #eed6d3;
+  color: #463c3f;
+}
+
+.hover-X-O {
+  line-height: 90px;
+  color: transparent;
+  cursor: pointer;
+}
+
+.hover-X-O:hover {
+  color: #a49393;
+}
+/*# sourceMappingURL=board.css.map */

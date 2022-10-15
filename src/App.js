@@ -1,212 +1,109 @@
-
-import './App.css';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
+import Board from './board';
+import {RoundActive, RoundEnded} from './roundinfo';
+import './styles/styles.css';
 
-class Square extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-  render() {
-     let turnNumber = (this.props.turnNumber == 1 ? "X": "O");
-    return (
-      <>
-        <button className = "square"       
-          onClick={ (event) => {
-            if (this.props.isGameFinished) {return};
-            this.props.onClick();
-            event.target.classList.add("clicked");
-            } 
-          } 
-          
-          onMouseOver = {(event) => {
-              if(this.props.value || this.props.isGameFinished){return};
-              let target = event.target;
-              target.classList.add('hovering');
-            }
-          }
-          
-          onMouseLeave = {(event) => {
-              if(this.state.value || this.props.isGameFinished){return};
-              let target = event.target;
-              target.classList.remove('hovering');
-            }
-          }          
-          >
-          {this.props.value || turnNumber}
-        </button>
-      </>
-    );
-  }
-}
+function Game() {
+const [currentSquaresArr, setcurrentSquaresArr] = useState(Array(9).fill(null));
+const [historyOfSquares, setHistoryOfSquares] = useState([]);
+const [currentPositionGame, setcurrentPositionGame] = useState(-1);
+const [nextTurn, setNextTurn] = useState('X');
+const [winner, setWinner] = useState(null);
 
-class Board extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+const handleSquareClick = (squareIndex) => {
+  
+  let newSquares = [...currentSquaresArr];
+  newSquares[squareIndex] = nextTurn;
 
-  renderSquare(i) {
-    return (
-      <Square
-        index = {i}
-        value={this.props.squares[i]}
-        isGameFinished = {this.props.isGameFinished}
-        turnNumber = {this.props.turnNumber}
-        onClick={() => this.props.onClick(i)}
-      />
-    );
-  }
+  setcurrentSquaresArr(newSquares);
+  
+  setNextTurn((turn) => turn === 'X' ? 'O': 'X'); 
 
-  render() {
-    return (
-      <>
-       <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}          
-        </div>
-      </>
-    );
-  }
-}
-class NewGame extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+  setcurrentPositionGame((count) => count + 1);
 
-  render() {
-    return (<>
-      <button class = "new-game-btn" onClick = {() => this.props.handleNewGame()}>{this.props.newOrRestart}</button>
-    </>)
-  }
-}
-
-class Gameactive extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-
-  render() {
-    return (<div className = "game-active">
-      <p>Next player &#8594;<b>{this.props.nextPlayer}</b></p>
-      <NewGame handleNewGame = {() => this.props.handleNewGame()} newOrRestart = "Restart"/>
-    </div>)
-  }
-}
-
-class Gameended extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-
-  render() {
-    return (<div className="game-ended">
-      <p>The winner is: {}</p>
-      <NewGame handleNewGame = {() => this.props.handleNewGame()} newOrRestart = "New Game"/>
-    </div>)
-  }
-}
-
-
-class Game extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      squares: Array(9).fill(null),
-      turnNumber: 1,
-      isGameFinished: false,
-    };
-  }
-
-  handleClick = (i) => {
-    if (this.state.squares[i] !== null || this.state.isGameFinished === true) {return};
-    
-    const squares = this.state.squares.slice();
-    this.state.turnNumber === 1 ? (squares[i] = "X") : (squares[i] = "O");
-
-    let toggledturnNumber = (this.state.turnNumber + 1) % 2;
-    this.setState(
-      () => ({ squares: squares, turnNumber: toggledturnNumber }), // update State
-    // async stuff
-    function syncFun(){
-      let gameFinished = isGameEnded(this.state.squares);
-      this.setState((prev) => ({ ...prev ,isGameFinished: gameFinished}));
-    })    
-  }
-
-  handleNewGame = () => {
-    this.setState({ squares: Array(9).fill(null), turnNumber: 1, isGameFinished: false});
-    let clickedSquares = document.querySelectorAll(".clicked");
-    console.log(clickedSquares);
-    for (let i = 0; i < clickedSquares.length; i++){
-      clickedSquares[i].classList.remove("clicked");
-      clickedSquares[i].classList.remove("hovering")
+  setHistoryOfSquares(
+    function(prev){
+      let newHistorySquares = [...prev];
+      newHistorySquares.splice(currentPositionGame + 1);
+      newHistorySquares.push(newSquares);
+      return newHistorySquares;
     }
-    console.log(clickedSquares);
+  )
+
+  declareWinner(newSquares);
+}
+
+const handleRestart = () => {
+  setcurrentSquaresArr(Array(9).fill(null));
+  setHistoryOfSquares([]);
+  setcurrentPositionGame(-1);
+  setNextTurn('X');
+  setWinner(null);
+}
+
+const nextMove = () => {
+  if(currentPositionGame + 1 == historyOfSquares.length){return};
+  setcurrentSquaresArr(historyOfSquares[currentPositionGame + 1]);
+  setcurrentPositionGame((count) => count + 1);
+  setNextTurn((turn) => turn === 'X' ? 'O': 'X');
+}
+
+const prevMove = () => {
+  if(currentPositionGame < 0){return};
+  if(currentPositionGame !== 0){
+    setcurrentSquaresArr(historyOfSquares[currentPositionGame - 1]);
+  } else {
+    setcurrentSquaresArr(Array(9).fill(null));
+  }
+  
+  setcurrentPositionGame((count) => count - 1);
+  setNextTurn((turn) => turn === 'X' ? 'O': 'X'); 
+}
+
+const declareWinner = (squaresToCheck) => {
+  
+  let lines = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6]
+  ];
+  let winner = null;
+
+  for(let i = 0; i < lines.length; i++){
+    let [a,b,c] = lines[i];
+
+    if(squaresToCheck[a] && squaresToCheck[a] == squaresToCheck[b] && squaresToCheck[a] == squaresToCheck[c] ){
+      winner = squaresToCheck[a];      
+      break;
+    }
+  }
+  
+  if(winner === null && squaresToCheck.every( (elem) => Boolean(elem) )) {
+    winner = "nobody"
   }
 
-  render() {
-    const nextPlayer = ' ' + (this.state.turnNumber === 1 ? 'X': 'O');
+  setWinner(() => {
+    return winner;
+  })
+}
 
-    return (
-      <>
-        <div className="all-game">
-          <h1 className="title">TiczzTacToe</h1>
-            <div className = "flex-box">
-              <div className="game-board">
-                <Board squares = {this.state.squares}
-                  isGameFinished = {this.state.isGameFinished}
-                  turnNumber = {this.state.turnNumber}
-                  onClick={(i) => this.handleClick(i)} />
-              </div>
-              <div className="game-info">                
-                {!this.state.isGameFinished ? 
-                <Gameactive nextPlayer = {nextPlayer} handleNewGame = { () => this.handleNewGame()}/>: <Gameended  handleNewGame = {() => this.handleNewGame()} /> }
-              </div>
-            </div>
+  return (
+    <>
+      <div class = "grid-container">
+        <div class="TicTacToeTitle"><h1>TicTacToe</h1></div>
+        <div class="Board">
+          <Board squaresArr = {currentSquaresArr} handleSquareClick = {(i) => handleSquareClick(i)} nextTurn = {nextTurn} winner = {winner}/>
         </div>
-      </>
-    );
-  }
+        <div class="GameInfo">{winner ? <RoundEnded winner = {winner} newGame = {() => handleRestart()}/> :<RoundActive nextTurn = {nextTurn} handleRestart = {() => handleRestart()} nextMove = {() => nextMove()} prevMove = {() => prevMove()}/>}</div>
+      </div>
+    </>
+  )
 }
 
 export default Game;
-
-let isGameEnded = (arrToCheck) => {
-    const winningLines = [
-      [0,1,2],
-      [3,4,5],
-      [6,7,8],
-      [0,3,6],
-      [1,4,7],
-      [2,5,8],
-      [0,4,8],
-      [2,4,6],
-    ]
-
-    let gameFinished = winningLines.some( (line) => {
-      return (arrToCheck[line[0]] !== null && arrToCheck[line[0]] === arrToCheck[line[1]] && arrToCheck[line[0]] === arrToCheck[line[2]])
-    })
-    
-    return gameFinished;
-}

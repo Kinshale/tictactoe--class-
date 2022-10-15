@@ -1,0 +1,118 @@
+#game-active {
+  height: 276px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#game-active .flex-item {
+  text-align: center;
+  margin-top: 15px;
+  height: 150px;
+}
+
+#game-active .flex-item .next-player {
+  color: #463c3f;
+  font-size: 1.8em;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-bottom: 15px;
+}
+
+#game-active .flex-item #restart-game {
+  font-size: 1.6em;
+  margin: 0 auto;
+  padding: 5px 15px;
+  border: 1px solid #463c3f;
+  background: #ebc6c9;
+  color: #463c3f;
+  border-radius: 2px;
+}
+
+#game-active .flex-item #restart-game:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.02);
+          transform: scale(1.02);
+  border: 2px solid #463c3f;
+}
+
+#game-active .forw-back-btn-group {
+  margin-top: 10px;
+}
+
+#game-active .forw-back-btn-group button {
+  width: 45px;
+  height: 45px;
+  border: 1px solid #463c3f;
+  background: #ebc6c9;
+  color: #67595e;
+  border-radius: 15%;
+  font-size: 35px;
+  line-height: 35px;
+}
+
+#game-active .forw-back-btn-group button:hover {
+  cursor: pointer;
+  border: 2px solid #463c3f;
+}
+
+#game-active .forw-back-btn-group .back-btn {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+  margin-right: 8px;
+}
+
+#game-active .forw-back-btn-group .forw-btn {
+  -webkit-transform: rotateY(1deg);
+          transform: rotateY(1deg);
+}
+
+#game-ended {
+  height: 276px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#game-ended p {
+  font-size: 2em;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+}
+
+#game-ended #new-game {
+  font-size: 1.6em;
+  margin-top: 40px;
+  padding: 5px 15px;
+  border: 1px solid #463c3f;
+  background: #ebc6c9;
+  color: #463c3f;
+  border-radius: 2px;
+}
+
+#game-ended #new-game:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.02);
+          transform: scale(1.02);
+  border: 2px solid #463c3f;
+}
+/*# sourceMappingURL=round-style.css.map */

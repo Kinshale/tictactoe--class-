@@ -1,0 +1,93 @@
+$rosewater: #ebc6c9;
+$dustyrose: #eed6d3;
+$coffeepot: #a49393;
+$coffeegrey: #67595e;
+$darkgrey: #463c3f;
+
+#game-active {
+  height: 276px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  .flex-item {
+    text-align: center;
+    margin-top: 15px;
+    height: 150px;
+    .next-player {
+      color: $darkgrey;
+      font-size: 1.8em;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      margin-bottom: 15px;
+    }
+
+    #restart-game {
+      font-size: 1.6em;
+      margin: 0 auto;
+      padding: 5px 15px;
+      border: 1px solid $darkgrey;
+      background: $rosewater;
+      color: $darkgrey;
+      border-radius: 2px;
+
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.02);
+        border: 2px solid $darkgrey;
+      }
+    }
+  }
+
+  .forw-back-btn-group {
+    margin-top: 10px;
+    button {
+      width: 45px;
+      height: 45px;
+      border: 1px solid $darkgrey;
+      background: $rosewater;
+      color: $coffeegrey;
+      border-radius: 15%;
+      font-size: 35px;
+      line-height: 35px;
+      &:hover {
+        cursor: pointer;
+        border: 2px solid $darkgrey;
+      }
+    }
+    .back-btn {
+      transform: rotateY(180deg);
+      margin-right: 8px;
+    }
+    .forw-btn {
+      transform: rotateY(1deg);
+    }
+  }
+}
+
+#game-ended {
+  height: 276px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  p {
+    font-size: 2em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+  }
+  #new-game {
+    font-size: 1.6em;
+    margin-top: 40px;
+    padding: 5px 15px;
+    border: 1px solid $darkgrey;
+    background: $rosewater;
+    color: $darkgrey;
+    border-radius: 2px;
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.02);
+      border: 2px solid $darkgrey;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+$rosewater: #ebc6d9;
+$dustyrose: #eed6d3;
+$coffeepot: #a49393;
+$darkgrey: #463c3f;
+
+.square {
+  width: 90px;
+  height: 90px;
+  font-size: 54px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border: none;
+  background: $dustyrose;
+  color: $coffeegrey;
+}
+.hover-X-O {
+  line-height: 90px;
+  color: transparent;
+  cursor: pointer;
+}
+.hover-X-O:hover {
+  color: $coffeepot;
+}

@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap");
+$rosewater: #ebc6c9;
+$dustyrose: #eed6d3;
+$coffeepot: #a49393;
+$coffeegrey: #67595e;
+$darkgrey: #463c3f;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --tintle-font: "Dancing Script", cursive;
+}
+#root {
+  width: 100%;
+  min-width: 500px;
+  height: 100vh;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.grid-container {
+  background: $dustyrose;
+  box-shadow: 4px 4px 10px $rosewater;
+  outline: 1px solid $coffeegrey;
+  padding: 20px;
+  border-radius: 3px;
+  display: grid;
+  grid-template-columns: 276px 225px;
+  grid-template-rows: auto 276px;
+  gap: 35px 30px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "TicTacToeTitle TicTacToeTitle"
+    "Board GameInfo";
+
+  .TicTacToeTitle {
+    grid-area: TicTacToeTitle;
+    h1 {
+      font-family: var(--tintle-font);
+      color: $darkgrey;
+      font-size: 4.8em;
+      text-align: center;
+    }
+  }
+
+  .Board {
+    background: $coffeegrey;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 3px 3px;
+    grid-template-areas:
+      ". . ."
+      ". . ."
+      ". . .";
+    grid-area: Squares;
+    grid-area: Board;
+  }
+  .GameInfo {
+    grid-area: GameInfo;
+  }
+}
