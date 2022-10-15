@@ -1,38 +1,98 @@
-.App {
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  --square-width: 80px;
+}
+
+.all-game {
+  background: rgb(210, 230, 202);
+  width: 600px;
+  margin: 0 auto;
+  margin-top: 80px;
+  padding-bottom: 20px;
+  border-radius: 5px;
+}
+.title {
+  font-size: 4em;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  padding: 20px;
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.flex-box {
+  display: flex;
+  justify-content: center;
+  padding: 0 10px;
+}
+.game-board {
+  width: calc(3 * var(--square-width));
+  margin-right: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.board-row {
+  clear: both;
+  display: table;
+  content: "";
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.square {
+  width: var(--square-width);
+  height: var(--square-width);
+  font-size: 3rem;
+  float: left;
+  outline: 1.5px black solid;
+  padding: 0;
+  border: none;
+  background: rgb(188, 226, 209);
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0);
+}
+
+.game-info {
+  width: 45%;
+  margin-left: 10px;
+  position: relative;
+}
+
+.hovering {
+  color: rgb(80, 80, 80);
+}
+
+.clicked {
+  color: black !important;
+}
+.game-info .game-active {
+  height: calc(3 * var(--square-width));
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+.game-active > p {
+  margin-top: 5px;
+  font-size: 1.55em;
+  font-style: italic;
+}
+.game-active > p b {
+  font-size: 1.35em;
 }
 
-.App-link {
-  color: #61dafb;
+.new-game-btn {
+  background-color: rgb(255, 217, 191);
+  color: rgb(107, 5, 5);
+  font-family: fantasy;
+  font-size: 1.4em;
+  width: auto;
+  height: 40px;
+  margin-top: 15px;
+  text-transform: uppercase;
+  padding: 0px 15px;
+  border: 2px rgb(197, 12, 12) solid;
+  border-radius: 2px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.new-game-btn:hover {
+  transform: scaleY(1.1);
+  left: 50%;
+  cursor: pointer;
 }
